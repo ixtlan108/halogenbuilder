@@ -1,36 +1,18 @@
-(import /html/button :as btn)
-(import /html/wrapper :as wr)
+(import /project/generator/system :as generator)
+(import /html/common :as c)
 (import /html/input :as inp)
 
 
-  
 (def input-1 
   { :name "input1" 
-    :type :string
+    :type :num
     :title "Gps#"
-    :evt "GpsChanged" 
-    :p1 ["myval" "String"] 
-    :class "my-input-class"})
-
-(def btn-1 
-  { :evt "Btn1Click"
-    :title "My btn-1 click"
-    :disabled false
-    :class "ps-btn btn btn-outline-success"
-    :name "button1"})
-
-(defn prn-result [s]
-  (let [[level s1] s]
-    (case level
-      1 (print (string/format "  %s" s1)) 
-      2 (print (string/format "    %s" s1)) 
-      3 (print (string/format "      %s" s1)) 
-      4 (print (string/format "        %s" s1)) 
-      (print (string/format "      %s" s1))))) 
-
+    :evt "GpsChange"}) 
 
 (defn main [&]
-  (map prn-result (btn/make btn-1 "MainAction")))
+  (generator/run))
+  #(map c/prn-result (inp/mk-content-std-num "GpsChange" "my-input-class" :num)))
+  #(map c/prn-result (inp/make "MainAction" input-1)))
 
 (comment
   (defn main [&]
