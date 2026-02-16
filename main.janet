@@ -1,4 +1,5 @@
 (import /project/generator/system :as generator)
+(import /project/rapanui/system :as rapanui)
 (import /html/common :as c)
 (import /html/input :as inp)
 
@@ -10,7 +11,9 @@
     :evt "GpsChange"}) 
 
 (defn main [&]
+  #(rapanui/run))
   (generator/run))
+  #(rapanui/run))
   #(map c/prn-result (inp/mk-content-std-num "GpsChange" "my-input-class" :num)))
   #(map c/prn-result (inp/make "MainAction" input-1)))
 
