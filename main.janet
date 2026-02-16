@@ -11,6 +11,7 @@
     :evt "GpsChange"}) 
 
 (defn main [&]
+  #(rapanui/run))
   (generator/run))
   #(rapanui/run))
   #(map c/prn-result (inp/mk-content-std-num "GpsChange" "my-input-class" :num)))

@@ -37,29 +37,57 @@
     @[[5 "case val of"]
       [6 "Nothing ->"]
       (match evt-disabled 
-        [evt true] (mk-str-1 class1 evt)
-        [evt false] (mk-str-2 class1 evt)
         [nil true] (mk-str-3 class1)
-        [nil false] (mk-str-4 class1))
+        [nil false] (mk-str-4 class1)
+        [evt true] (mk-str-1 class1 evt)
+        [evt false] (mk-str-2 class1 evt))
       [6 "Just val1 ->"]
       (match evt-disabled 
-        [evt true] (mk-str-5 class1 evt)
-        [evt false] (mk-str-6 class1 evt)
         [nil true] (mk-str-7 class1)
-        [nil false] (mk-str-8 class1))]))
+        [nil false] (mk-str-8 class1)
+        [evt true] (mk-str-5 class1 evt)
+        [evt false] (mk-str-6 class1 evt))]))
 
-(defn mk-content-num [evt class typ disabled]
+(defn mk-num-1 [typ-s class evt]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.disabled true]" typ-s class evt)])
+
+(defn mk-num-2 [typ-s class evt]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s]" typ-s class evt)])
+
+(defn mk-num-3 [typ-s class]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HP.disabled true]" typ-s class)])
+
+(defn mk-num-4 [typ-s class]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ]]" typ-s class)])
+
+(defn mk-num-5 [typ-s class evt]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value (show val1), HP.disabled true]" typ-s class evt)])
+
+(defn mk-num-6 [typ-s class evt]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value (show val1)]" typ-s class evt)])
+
+(defn mk-num-7 [typ-s class]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HP.disabled true, HP.value (show val1)]" typ-s class)])
+
+(defn mk-num-8 [typ-s class]
+  [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HP.value (show val1)]" typ-s class)])
+
+(defn mk-content-num [class typ evt-disabled]
   (let [class1 (if class class "form-control ps-input")
         typ-s (inp-type typ)]
     @[[5 "case val of"]
       [6 "Nothing ->"]
-      (if disabled
-        [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.disabled true]" typ-s class1 evt)]
-        [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s]" typ-s class1 evt)])
+      (match evt-disabled 
+        [nil true] (mk-num-3 typ-s class1)
+        [nil false] (mk-num-4 typ-s class1)
+        [evt true] (mk-num-1 typ-s class1 evt)
+        [evt false] (mk-num-2 typ-s class1 evt))
       [6 "Just val1 ->"]
-      (if disabled
-        [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value (show val1), HP.disabled true]" typ-s class1 evt)]
-        [7 (string/format "HH.input [HP.type_ %s, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value (show val1)]" typ-s class1 evt)])]))
+      (match evt-disabled 
+        [nil true] (mk-num-7 typ-s class1)
+        [nil false] (mk-num-8 typ-s class1)
+        [evt true] (mk-num-5 typ-s class1 evt)
+        [evt false] (mk-num-6 typ-s class1 evt))]))
 
 (defn mk-content (p)
   (let [typ (p :type)
@@ -68,8 +96,8 @@
         disabled (p :disabled)]
     (case typ 
       :string (mk-content-str class [evt disabled])
-      :int (mk-content-num evt class typ disabled)
-      :num (mk-content-num evt class typ disabled))))
+      :int (mk-content-num class typ [evt disabled])
+      :num (mk-content-num class typ [evt disabled]))))
     
 
 (defn fn-param [p]
