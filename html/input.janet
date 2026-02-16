@@ -21,13 +21,13 @@
   [7 (string/format "HH.input [HP.type_ InputText, HP.classes [ ClassName \"%s\" ]]" class)])
 
 (defn mk-str-5 [class evt]
-  [7 (string/format "HH.input [HP.type_ InputText, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value val1, HP.disabled true]" class evt)])
+  [7 (string/format "HH.input [HP.type_ InputText, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value val1, HP.disabled true]" class)])
 
 (defn mk-str-6 [class evt]
   [7 (string/format "HH.input [HP.type_ InputText, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value val1]" class evt)])
 
 (defn mk-str-7 [class]
-  [7 (string/format "HH.input [HP.type_ InputText, HP.classes [ ClassName \"%s\" ], HE.onValueChange %s, HP.value val1, HP.disabled true]" class)])
+  [7 (string/format "HH.input [HP.type_ InputText, HP.classes [ ClassName \"%s\" ],  HP.value val1, HP.disabled true]" class)])
 
 (defn mk-str-8 [class]
   [7 (string/format "HH.input [HP.type_ InputText, HP.classes [ ClassName \"%s\" ], HP.value val1]" class)])
