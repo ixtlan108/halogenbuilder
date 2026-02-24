@@ -30,7 +30,7 @@
   (let  [evt (p :evt)
          class (p :class)
          disabled (p :disabled)]
-    (let [class1 (if class class "form-control ps-input")]
+    (let [class1 (if class class "form-control ps-select")]
        @[[5 "let"]
          [6 "opts = map (mkOption p.selected) (emptySelectItem : p.items)"]
          [5 "in"]
@@ -38,18 +38,7 @@
          [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class1)]
          [6 (string/format ", HE.onValueChange %s" evt)]
          [6 (string/format ", HP.disabled %s ]" disabled)]
-         [6 (string/format "%s" "opts")]])))
-
-(defn xmk-content [p]
-  (let  [evt (p :evt)
-         class (p :class)
-         disabled (p :disabled)]
-    (let [class1 (if class class "form-control ps-input")]
-       @[[5 (string/format "HH.select")]
-         [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class1)]
-         [6 (string/format ", HE.onValueChange %s" evt)]
-         [6 (string/format ", HP.disabled %s ]" disabled)]
-         [6 (string/format "%s" "[]")]])))
+         [6 "opts"]])))
 
 (defn make [act p]
   (let [sign (mk-sign (p :name) act)
@@ -59,7 +48,7 @@
 
 (defn mk-sel-fn [ma] (fn [b] (make ma b)))
 
-(defn run-selects [selects action output-fn]
+(defn run [selects action output-fn]
   (let [sel-fn (mk-sel-fn action)
         items (map sel-fn selects)]
     (map output-fn items)))

@@ -35,7 +35,7 @@
 
 (defn mk-btn-fn [ma] (fn [b] (make ma b)))
 
-(defn run-buttons [btns action output-fn]
+(defn run [btns action output-fn]
   (let [btn-fn (mk-btn-fn action)
         items (map btn-fn btns)]
     (map output-fn items)))
