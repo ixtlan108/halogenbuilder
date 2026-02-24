@@ -1,18 +1,27 @@
 (import /project/generator/system :as generator)
 (import /project/rapanui/system :as rapanui)
+(import /project/derivatives/system :as derivatives)
 (import /html/common :as c)
-(import /html/input :as inp)
+#(import /html/input :as inp)
+(import /html/select2 :as sel2)
 
 
-(def input-1 
+(comment input-1 
   { :name "input1" 
     :type :num
     :title "Gps#"
     :evt "GpsChange"}) 
 
+(defn run [] 
+  (let [items {}])
+  (map c/prn-result (sel2/mk-sign "demo" "MainAction"))
+  (map c/prn-result (sel2/mk-content {:evt "Event" :disabled "false"})))
+
 (defn main [&]
+  (run))
+  #(derivatives/run))
   #(rapanui/run))
-  (generator/run))
+  #(generator/run))
   #(rapanui/run))
   #(map c/prn-result (inp/mk-content-std-num "GpsChange" "my-input-class" :num)))
   #(map c/prn-result (inp/make "MainAction" input-1)))

@@ -21,7 +21,9 @@
       5 (print (string/format "        %s" s1)) 
       6 (print (string/format "          %s" s1)) 
       7 (print (string/format "            %s" s1)) 
-      (print (string/format "    %s" s1))))) 
+      8 (print (string/format "              %s" s1)) 
+      9 (print (string/format "                %s" s1)) 
+      (print (string/format "    %s" s1)))))
 
 (defn write-result [f s]
   (let [[level s1] s]
@@ -33,9 +35,14 @@
       5 (file/write f (string/format "        %s\n" s1)) 
       6 (file/write f (string/format "          %s\n" s1)) 
       7 (file/write f (string/format "            %s\n" s1)) 
+      8 (file/write f (string/format "              %s\n" s1)) 
+      9 (file/write f (string/format "                %s\n" s1)) 
       (file/write f (string/format "    %s\n" s1))))) 
 
 (defn mk-write-fn [f] (fn [b] (write-result f b)))
+
+(defn flatten [arr]
+  (reduce array/join (array/new 8) arr))
 
 #(defn partial [f & args]
 #  (fn [& more-args]

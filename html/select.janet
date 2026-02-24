@@ -40,17 +40,6 @@
          [6 (string/format ", HP.disabled %s ]" disabled)]
          [6 (string/format "%s" "opts")]])))
 
-(defn xmk-content [p]
-  (let  [evt (p :evt)
-         class (p :class)
-         disabled (p :disabled)]
-    (let [class1 (if class class "form-control ps-input")]
-       @[[5 (string/format "HH.select")]
-         [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class1)]
-         [6 (string/format ", HE.onValueChange %s" evt)]
-         [6 (string/format ", HP.disabled %s ]" disabled)]
-         [6 (string/format "%s" "[]")]])))
-
 (defn make [act p]
   (let [sign (mk-sign (p :name) act)
         cnt (mk-content p)
