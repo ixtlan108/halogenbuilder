@@ -23,7 +23,7 @@
         [9 (string/format " , HP.selected (\"%s\" == selected)]" value)]
         [9 (string/format " [ HH.text \"%s\"]" text)]])))
 
-(def no-select [{:v "-" :t "" :f true}])
+(def no-select [{:v "-" :t "-" :f true}])
 
 (defn with-no-select [p]
   (let [skip (get p :skip-no-sel false)
