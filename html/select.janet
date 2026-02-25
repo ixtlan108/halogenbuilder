@@ -30,7 +30,7 @@
   (let  [evt (p :evt)
          class (p :class)
          disabled (p :disabled)]
-    (let [class1 (if class class "form-control ps-input")]
+    (let [class1 (if class class "form-control ps-select")]
        @[[5 "let"]
          [6 "opts = map (mkOption p.selected) (emptySelectItem : p.items)"]
          [5 "in"]
