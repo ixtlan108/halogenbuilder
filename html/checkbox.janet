@@ -16,7 +16,7 @@
 #     , HH.label [ HP.classes [ClassName "form-check-label"], HP.for htmlId ] [ HH.text title])
     
 (defn mk-content [p]
-  (let [div-class (get p :cl-div"form-check")
+  (let [div-class (get p :cl-div"form-check form-switch")
         check-class (get p :cl-check "form-check-input") 
         label-class (get p :cl-lbl "form-check-label") 
         html-id (p :id)

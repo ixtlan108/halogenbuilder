@@ -38,7 +38,7 @@
          [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class1)]
          [6 (string/format ", HE.onValueChange %s" evt)]
          [6 (string/format ", HP.disabled %s ]" disabled)]
-         [6 (string/format "%s" "opts")]])))
+         [6 "opts"]])))
 
 (defn make [act p]
   (let [sign (mk-sign (p :name) act)
