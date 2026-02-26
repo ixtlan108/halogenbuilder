@@ -118,7 +118,7 @@
   
 (defn mk-inp-fn [ma] (fn [b] (make ma b)))
 
-(defn run-inputs [inputs action output-fn]
+(defn run [inputs action output-fn]
   (let [inp-fn (mk-inp-fn action)
         items (map inp-fn inputs)]
     (map output-fn items)))

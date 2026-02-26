@@ -61,7 +61,7 @@
 
 (defn mk-sel-fn [ma] (fn [b] (make ma b)))
 
-(defn run-selects [selects action output-fn]
+(defn run [selects action output-fn]
   (let [sel-fn (mk-sel-fn action)
         items (map sel-fn selects)]
     (map output-fn items)))
