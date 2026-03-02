@@ -23,7 +23,7 @@
         evt (p :evt)
         title (p :title)]
     @[[2 (string/format "HH.div [ HP.classes [ ClassName \"%s\" ]]" div-class)]
-      [3 (string/format "[ HH.input [HP.type_ InputCheckbox, HP.id \"%s\", HP.classes [ ClassName \"%s\" ], HP.checked isChecked, HE.onValueChange %s ]"
+      [3 (string/format "[ HH.input [HP.type_ InputCheckbox, HP.id \"%s\", HP.classes [ ClassName \"%s\" ], HP.checked isChecked, HE.onChecked %s ]"
             html-id check-class evt)]
       [3 (string/format ", HH.label [ HP.classes [ClassName \"%s\" ], HP.for \"%s\"] [ HH.text \"%s\"]" label-class html-id title)]
       [3 "]"]]))
