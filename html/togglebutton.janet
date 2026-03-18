@@ -19,8 +19,8 @@
         class (get-class btn)]
     (if p1
       (let [[val-name _] p1]
-        [2 (string/format "HH.button [HE.onClick %s, HP.disabled %s, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt val-name class title)])
-      [2 (string/format "HH.button [HE.onClick %s, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt class title)])))
+        [2 (string/format "HH.button [HP.attr (AttrName \"data-toggle\") \"button\", HE.onClick %s, HP.disabled %s, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt val-name class title)])
+      [2 (string/format "HH.button [HP.attr (AttrName \"data-toggle\") \"button\", HE.onClick %s, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt class title)])))
 
 (defn mk-sign [act btn]
   (let [p1 (btn :p1)]
@@ -35,7 +35,7 @@
 
 (defn mk-btn-fn [ma] (fn [b] (make ma b)))
 
-(defn run-buttons [btns action output-fn]
+(defn run [btns action output-fn]
   (let [btn-fn (mk-btn-fn action)
         items (map btn-fn btns)]
     (map output-fn items)))

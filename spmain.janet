@@ -1,19 +1,11 @@
 (import /project/generator/system :as generator)
-#(import /project/rapanui/system :as rapanui)
-(import /project/derivatives/system :as derivatives)
+(import /project/camera/system :as camera)
 (import /html/common :as c)
 #(import /html/input :as inp)
 (import /html/select2 :as sel2)
 (import /html/select :as sel)
 
 (import spork/argparse :as ap)
-
-
-(comment input-1 
-  { :name "input1" 
-    :type :num
-    :title "Gps#"
-    :evt "GpsChange"}) 
 
 (def selects  
   @[{ :name "pwfGpsNum" 
@@ -36,7 +28,7 @@
     (printf "%q" result)))
 
 (def PROJ {"x" (partial demo-run) 
-           "1" (partial derivatives/run)})
+           "1" (partial camera/run)})
 
 (defn run [argx]
   (printf "%q" argx)
@@ -49,7 +41,7 @@
     [ argx (ap/argparse "Halogen Builder"
             "proj" {:kind :option  
                     :short "p" 
-                    :help "x: Demo run, 1: derivatives" 
+                    :help "x: Demo run, 1: camera" 
                     :required true}
             "console"  { :kind :flag    
                          :short "c" 

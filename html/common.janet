@@ -44,6 +44,17 @@
 (defn flatten [arr]
   (reduce array/join (array/new 8) arr))
 
+(defn mk-output-fn1 [&opt f]
+  (if f 
+     (partial write-result f)
+     prn-result))
+
+(defn mk-output-fn2 [&opt f]
+  (if f
+    (let [wr-fn (partial write-result f)]
+      (fn [b] (map wr-fn b)))
+    (fn [b] (map prn-result b))))
+
 #(defn partial [f & args]
 #  (fn [& more-args]
 #    (apply f (array/concat args more-args)))
