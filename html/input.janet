@@ -133,6 +133,19 @@
         items (map inp-fn inputs)]
     (map output-fn items)))
 
+(defn params [name title itype disabled label-class &opt evt]
+  (if evt
+    { :name name 
+      :type itype 
+      :title title 
+      :lc label-class
+      :disabled disabled
+      :evt evt} 
+    { :name name 
+      :type itype 
+      :title title 
+      :lc label-class
+      :disabled disabled}))
 
 
 
