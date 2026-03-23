@@ -11,6 +11,24 @@
       [1 (string/format "%s :: forall w. HTML w %s" fn-name main-action)]
       [1 (string/format "%s =" fn-name)]]))
 
+(defn mk-fn-sign-0 [fn-name main-action]
+  @[[1 sp]
+    [1 (string/format "%s :: forall w. HTML w %s" fn-name main-action)]
+    [1 (string/format "%s =" fn-name)]])
+
+(defn mk-fn-sign-1 [fn-name main-action p1]
+  (let [[n1 t1] p1]
+    @[[1 sp]
+      [1 (string/format "%s :: forall w. %s -> HTML w %s" fn-name t1 main-action)]
+      [1 (string/format "%s %s =" fn-name n1)]]))
+
+(defn mk-fn-sign-2 [fn-name main-action p1 p2]
+  (let [[n1 t1] p1
+        [n2 t2] p2]
+    @[[1 sp]
+      [1 (string/format "%s :: forall w. %s -> %s -> HTML w %s" fn-name t1 t2 main-action)]
+      [1 (string/format "%s %s %s =" fn-name n1 n2)]]))
+
 (defn prn-result [s]
   (let [[level s1] s]
     (case level
