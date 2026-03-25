@@ -157,7 +157,7 @@
 
 (def label-class "ps-label ps-mr-1")
 
-(defn params [name title &keys {:itype itype :disabled disabled :lc lc :evt evt}]
+(defn params [name title &keys {:t itype :d disabled :lc lc :e evt}]
   (default itype :string)
   (default disabled :false)
   (default lc label-class)

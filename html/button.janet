@@ -1,32 +1,30 @@
 (import /html/common :as c)
 
 (def class-map
- @{ :default "ps-btn btn btn-outline-success"
-    :1 "btn btn btn-outline-success ps-mt-auto"})
+  @{ :default "btn ps-btn btn-outline-success"
+     :std-s1 "btn btn-outline-success ps-mt-auto"
+     :std-s2 "btn btn-outline-success ps-mt-auto ps-mr-1"
+     :std-d1 "btn btn-outline-danger ps-mt-auto"
+     :std-d2 "btn btn-outline-danger ps-mt-auto ps-mr-1"
+     :ps-s1  "btn ps-btn btn-outline-success ps-mt-auto ps-mr-1"
+     :ps-s2  "btn ps-btn btn-outline-success ps-mt-auto ps-mr-1 ps-btn-150 "
+     :ps-s3  "btn ps-btn btn-outline-success ps-mt-auto ps-mr-1 ps-btn-250 "})
 
-(defn get-class [btn]
-  (let [class (btn :class)]
-    (if (nil? class)
-      (get class-map :default)
-      (if (= :keyword (type class))
-        (get class-map class)
-        class))))
+(defn get-class [clazz]
+  (if (nil? clazz)
+    (get class-map :default)
+    (if (= :keyword (type clazz))
+      (get class-map clazz)
+      clazz)))
 
 (defn mk-content [btn]
   (let [evt (btn :evt)
         title (btn :title)
-        p1 (btn :p1)
-        class (get-class btn)]
-    (if p1
-      (let [[val-name _] p1]
-        [2 (string/format "HH.button [HE.onClick %s, HP.disabled %s, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt val-name class title)])
-      [2 (string/format "HH.button [HE.onClick %s, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt class title)])))
+        class (btn :class)]
+    [2 (string/format "HH.button [HE.onClick %s, HP.disabled isDisabled, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt class title)]))
 
 (defn mk-sign [act btn]
-  (let [p1 (btn :p1)]
-    (if p1
-      (c/mk-fn-sign (btn :name) act p1)
-      (c/mk-fn-sign (btn :name) act))))
+  (c/mk-fn-sign (btn :name) act ["isDisabled" "Boolean"]))
 
 (defn make [act btn]
   (let [sign (mk-sign act btn)
@@ -39,6 +37,12 @@
   (let [btn-fn (mk-btn-fn action)
         items (map btn-fn btns)]
     (map output-fn items)))
+
+(defn params [name title evt &opt class]
+  { :evt evt 
+    :title title 
+    :name name 
+    :class (get-class class)}) 
 
     #(map (fn [b] (map c/prn-result b)) items)))
 
