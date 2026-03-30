@@ -1,8 +1,8 @@
 
 (defn mk-wrapper-prm [title &keys {:lc lc :sc sc}]
-  (let [lc1 (if lc lc "ps-label")
-        sc1 (if sc sc "form-group")]
-    {:title title :label-class lc1 :span-class sc1}))
+  (default lc "ps-label")
+  (default sc "form-group")
+  {:title title :label-class lc :span-class sc})
 
 
 (defn wrapper [wrapper-prm content]

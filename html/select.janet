@@ -5,9 +5,9 @@
 (def sp "")
 
 (defn mk-sign [fn-name main-action]
-    @[[1 sp] 
-      [1 (string/format "%s :: forall w r. { items :: SelectItems, selected :: String | r } -> HTML w %s" fn-name main-action)]
-      [1 (string/format "%s p = " fn-name)]])
+  @[[1 sp] 
+    [1 (string/format "%s :: forall w r. { items :: SelectItems, selected :: String | r } -> HTML w %s" fn-name main-action)]
+    [1 (string/format "%s p = " fn-name)]])
 
 #emptySelectItem :: SelectItem
 #emptySelectItem = { v: "", t: "-"}
@@ -36,8 +36,11 @@
          [5 "in"]
          [5 (string/format "HH.select")]
          [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class1)]
-         [6 (string/format ", HE.onValueChange %s" evt)]
-         [6 (string/format ", HP.disabled %s ]" disabled)]
+         (if disabled
+          (do
+            [6 (string/format ", HE.onValueChange %s" evt)]
+            [6 (string/format ", HP.disabled true ]")])
+          [6 (string/format ", HE.onValueChange %s ]" evt)])
          [6 "opts"]])))
 
 (defn make [act p]
@@ -53,15 +56,15 @@
         items (map sel-fn selects)]
     (map output-fn items)))
 
+(defn params [name title evt &keys {:lc label-class :c class :d disabled}]
+  (default disabled false)
+  (default label-class "ps-label ps-mr-1")
+  (default class "form-control ps-select")
+  { :name name 
+    :title title 
+    :evt evt 
+    :disabled disabled 
+    :lc label-class 
+    :class class})
 
-(comment
-  (defn run-selects [selects action]
-    (let [sel-fn (mk-sel-fn action)
-          items (map sel-fn selects)]
-      (if fname
-        (let [f (file/open "/home/rcs/opt/klaxton/PhotoAppMVC/Purescript/generator-app/src/Generator/UI.purs" :w)
-              wfn (c/mk-write-fn f)]
-          (map (fn [b] (map wfn b)) items)
-          (file/close f))
-        (map (fn [b] (map c/prn-result b)) items)))))
 

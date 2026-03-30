@@ -1,6 +1,7 @@
 
 (def sp "")
 
+
 (defn mk-fn-sign [fn-name main-action &opt p1]
   (if p1 
     (let [[n1 t1] p1]
@@ -78,6 +79,17 @@
 
 (defn localized [project-path]
   (string/format "%s/%s" output-root project-path))
+
+(defn run [console run1 fname]
+  (if console
+    (let [out-2 (mk-output-fn2)
+          out-1 (mk-output-fn1)]
+      (run1 out-1 out-2))
+    (let [f (file/open fname :w)
+          out-2 (mk-output-fn2 f)
+          out-1 (mk-output-fn1 f)]
+      (run1 out-1 out-2)
+      (file/close f))))
 
 #(defn partial [f & args]
 #  (fn [& more-args]

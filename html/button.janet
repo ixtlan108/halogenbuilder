@@ -20,11 +20,16 @@
 (defn mk-content [btn]
   (let [evt (btn :evt)
         title (btn :title)
-        class (btn :class)]
-    [2 (string/format "HH.button [HE.onClick %s, HP.disabled isDisabled, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt class title)]))
+        class (btn :class)
+        disopt (btn :disopt)]
+    (if disopt
+      [2 (string/format "HH.button [HE.onClick %s, HP.disabled isDisabled, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt class title)]
+      [2 (string/format "HH.button [HE.onClick %s, HP.classes [ ClassName \"%s\"]] [HH.text \"%s\"]" evt class title)])))
 
 (defn mk-sign [act btn]
-  (c/mk-fn-sign (btn :name) act ["isDisabled" "Boolean"]))
+  (if (btn :disopt)
+    (c/mk-fn-sign (btn :name) act ["isDisabled" "Boolean"])
+    (c/mk-fn-sign (btn :name) act)))
 
 (defn make [act btn]
   (let [sign (mk-sign act btn)
@@ -38,13 +43,11 @@
         items (map btn-fn btns)]
     (map output-fn items)))
 
-(defn params [name title evt &opt class]
+(defn params [name title evt &keys {:c class :d disable-option}]
+  (default disable-option false)
   { :evt evt 
     :title title 
     :name name 
+    :disopt disable-option
     :class (get-class class)}) 
 
-    #(map (fn [b] (map c/prn-result b)) items)))
-
-#        cnt [2 (mk-content btn)]]
-#    (array/push sign cnt)))

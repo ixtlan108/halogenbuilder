@@ -38,8 +38,7 @@
          class (p :class)
          disabled (p :disabled)
          opts1 (with-no-select p)]
-    (let [class1 (or class "form-control ps-select")
-          opts (c/flatten (map mk-option opts1))]
+    (let [opts (c/flatten (map mk-option opts1))]
       (let [main-array @[[5 "let"]
                          [6 "opts = "]
                          [7 "["]
@@ -65,3 +64,34 @@
   (let [sel-fn (mk-sel-fn action)
         items (map sel-fn selects)]
     (map output-fn items)))
+
+(defn params [name title evt options &keys {:lc label-class :c class :sc span-class :d disabled :skip-no-sel skip-no-sel}]
+  (default disabled false)
+  (default label-class "ps-label ps-mr-1")
+  (default class "form-control ps-select")
+  (default skip-no-sel false)
+  { :name name 
+    :title title 
+    :evt evt 
+    :options
+    :lc label-class 
+    :class class
+    :sc span-class
+    :disabled disabled
+    :skip-no-sel skip-no-sel})
+   
+
+(comment selects  
+  @[{ :name "pageSelect" 
+      :title "Page"
+      :evt "PageChange"
+      :options [{:v "calls" :t "Calls" :f true} {:v "puts" :t "Puts"}]
+      :disabled "false"
+      :lc label-class
+      :skip-no-sel true} 
+    { :name "tickerSelect" 
+      :title "Ticker"
+      :evt "TickerChange"
+      :options tickers
+      :lc label-class
+      :disabled "false"}])
