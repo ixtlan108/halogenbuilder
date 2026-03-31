@@ -74,9 +74,9 @@
       (fn [b] (map wr-fn b)))
     (fn [b] (map prn-result b))))
 
-(def output-root "/home/rcs/opt/java/harborview3/purescript")
+#(def output-root "/home/rcs/opt/java/harborview3/purescript")
 #(def output-root "/home/rcs/opt/klaxton/PhotoAppMVC/Purescript")
-#(def output-root "/Users/zeus/Projects/PhotoAppMVC/Purescript")
+(def output-root "/Users/zeus/Projects/PhotoAppMVC/Purescript")
 
 (defn localized [project-path]
   (string/format "%s/%s" output-root project-path))
