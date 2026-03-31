@@ -1,5 +1,6 @@
 (import /project/generator/system :as generator)
 (import /project/camera/system :as camera)
+(import /project/derivatives/system :as deriv)
 (import /html/common :as c)
 
 (import spork/argparse :as ap)
@@ -14,13 +15,15 @@
 (defn proj-help []
   (let [projs [[0 "demo-run" true] 
                [1 "generator" false] 
-               [2 "camera" false]] 
+               [2 "camera" false] 
+               [3 "derivatives" false]] 
         projsx (map proj-item projs)]
     (string/join projsx "\n\t")))
 
 (def PROJ {"0" (partial demo-run) 
            "1" (partial generator/run)
-           "2" (partial camera/run)})
+           "2" (partial camera/run)
+           "3" (partial deriv/run)})
 
 (defn run [argx]
   (printf "%q" argx)

@@ -36,7 +36,7 @@
 (defn mk-content [p]
   (let  [evt (p :evt)    
          class (p :class)
-         disabled (p :disabled)
+         disabled (if (p :disabled) "true" "false")
          opts1 (with-no-select p)]
     (let [opts (c/flatten (map mk-option opts1))]
       (let [main-array @[[5 "let"]
@@ -45,7 +45,7 @@
                          [7 "]"]
                          [5 "in"]
                          [5 (string/format "HH.select")]
-                         [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class1)]
+                         [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class)]
                          [6 (string/format ", HE.onValueChange %s" evt)]
                          [6 (string/format ", HP.disabled %s ]" disabled)]
                          [6 (string/format "%s" "opts")]]]
@@ -73,7 +73,7 @@
   { :name name 
     :title title 
     :evt evt 
-    :options
+    :options options
     :lc label-class 
     :class class
     :sc span-class

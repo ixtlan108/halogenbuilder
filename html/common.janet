@@ -74,7 +74,8 @@
       (fn [b] (map wr-fn b)))
     (fn [b] (map prn-result b))))
 
-(def output-root "/home/rcs/opt/klaxton/PhotoAppMVC/Purescript")
+(def output-root "/home/rcs/opt/java/harborview3/purescript")
+#(def output-root "/home/rcs/opt/klaxton/PhotoAppMVC/Purescript")
 #(def output-root "/Users/zeus/Projects/PhotoAppMVC/Purescript")
 
 (defn localized [project-path]
@@ -90,6 +91,7 @@
           out-1 (mk-output-fn1 f)]
       (run1 out-1 out-2)
       (file/close f))))
+
 
 #(defn partial [f & args]
 #  (fn [& more-args]
