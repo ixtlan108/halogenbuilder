@@ -1,6 +1,12 @@
 
 (def sp "")
 
+#(def output-root "/home/rcs/opt/java/harborview3/purescript")
+(def output-root "/home/rcs/opt/klaxton/PhotoAppMVC/Purescript")
+#(def output-root "/Users/zeus/Projects/PhotoAppMVC/Purescript")
+
+(defn localized [project-path]
+  (string/format "%s/%s" output-root project-path))
 
 (defn mk-fn-sign [fn-name main-action &opt p1]
   (if p1 
@@ -58,6 +64,13 @@
       9 (file/write f (string/format "                %s\n" s1)) 
       (file/write f (string/format "    %s\n" s1))))) 
 
+
+(defn write-result-x [f s indent]
+  (let [[level s1] s
+        new-s [(+ level indent) s1]] 
+    (write-result f new-s)))
+
+
 (defn mk-write-fn [f] (fn [b] (write-result f b)))
 
 (defn flatten [arr]
@@ -68,18 +81,17 @@
      (partial write-result f)
      prn-result))
 
+(defn mk-output-fn1-x [indent &opt f]
+  (if f 
+     (partial write-result-x f)
+     prn-result))
+
 (defn mk-output-fn2 [&opt f]
   (if f
     (let [wr-fn (partial write-result f)]
       (fn [b] (map wr-fn b)))
     (fn [b] (map prn-result b))))
 
-#(def output-root "/home/rcs/opt/java/harborview3/purescript")
-#(def output-root "/home/rcs/opt/klaxton/PhotoAppMVC/Purescript")
-(def output-root "/Users/zeus/Projects/PhotoAppMVC/Purescript")
-
-(defn localized [project-path]
-  (string/format "%s/%s" output-root project-path))
 
 (defn run [console run1 fname]
   (if console
@@ -92,12 +104,24 @@
       (run1 out-1 out-2)
       (file/close f))))
 
+(defn run-fn1 [console run1 fname] 
+  (if console
+    (let [out-1 (mk-output-fn1)]
+      (run1 out-1))
+    (let [f (file/open fname :w)
+          out-1 (mk-output-fn1 f)]
+      (run1 out-1)
+      (file/close f))))
+
+
+
+
+
+
 
 #(defn partial [f & args]
 #  (fn [& more-args]
 #    (apply f (array/concat args more-args)))
-
-
 
 #(def add-two (partial + 2))
 #(add-two 3)  ; => 5    

@@ -45,8 +45,11 @@
                          [7 "]"]
                          [5 "in"]
                          [5 (string/format "HH.select")]
-                         [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class)]
-                         [6 (string/format ", HE.onValueChange %s" evt)]
+                         (if class
+                            (do
+                              [6 (string/format "[ HP.classes [ ClassName \"%s\" ]" class)]
+                              [6 (string/format ", HE.onValueChange %s" evt)])
+                            [6 (string/format "[ HE.onValueChange %s" evt)])
                          [6 (string/format ", HP.disabled %s ]" disabled)]
                          [6 (string/format "%s" "opts")]]]
         (array/insert main-array 3 ;opts)))))
@@ -80,6 +83,12 @@
     :disabled disabled
     :skip-no-sel skip-no-sel})
    
+(defn content-params [evt options &keys {:skip-no-sel skip-no-sel :c class}]
+  (default skip-no-sel false)
+  { :evt evt 
+    :options options
+    :class class
+    :skip-no-sel skip-no-sel})
 
 (comment selects  
   @[{ :name "pageSelect" 
