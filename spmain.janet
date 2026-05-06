@@ -4,11 +4,23 @@
 (import /project/crm/customer/system :as cust)
 
 (import /html/common :as c)
+(import /html/checkbox :as cb)
 (import ./common-main :as cm)
 
 (import spork/argparse :as ap)
 
-(defn demo-run [console]) 
+(defn run1 [out-1]
+  (map out-1 cust/billing-address)
+
+ (comment [p (cb/content-params "id1" "OnCheckClick" "Hey you!")]
+       cnt (cb/mk-content p)
+   (map out-1 cnt)))
+
+(def fname (c/localized "crm/customer-crm/src/CustomerCRM/UI2.purs"))
+
+(defn demo-run [console] 
+  (c/run-fn1 console run1 fname))
+
 
 (def PROJ {"0" (partial demo-run) 
            "1" (partial generator/run)
